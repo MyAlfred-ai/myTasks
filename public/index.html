@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>myTasks</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>myTasks</h1>
+  </header>
+
+  <main>
+    <!-- Sidebar: lists -->
+    <aside id="sidebar">
+      <div class="new-list">
+        <input id="new-list-name" type="text" placeholder="Nouvelle liste…" />
+        <button id="add-list-btn">+</button>
+      </div>
+      <ul id="lists"></ul>
+    </aside>
+
+    <!-- Main panel: current list -->
+    <section id="panel">
+      <div id="empty-state">Sélectionne ou crée une liste.</div>
+
+      <div id="list-view" hidden>
+        <div class="list-header">
+          <h2 id="list-title"></h2>
+          <div class="list-actions">
+            <button id="share-btn" title="Copier le lien de partage">🔗 Partager</button>
+            <button id="delete-list-btn" title="Supprimer la liste" class="danger">🗑</button>
+          </div>
+        </div>
+
+        <form id="add-task-form">
+          <input id="new-task-text" type="text" placeholder="Nouvelle tâche…" autocomplete="off" />
+          <button type="submit">Ajouter</button>
+        </form>
+
+        <ul id="tasks"></ul>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

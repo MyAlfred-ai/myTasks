@@ -1,0 +1,14 @@
+{
+  "name": "mytasks",
+  "version": "1.0.0",
+  "description": "TODO list app with shareable lists, SQLite backed",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2"
+  }
+}
