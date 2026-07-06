@@ -1,33 +1,49 @@
 :root {
-  --bg: #0f1115;
-  --panel: #171a21;
-  --panel-2: #1e222b;
-  --border: #2a2f3a;
-  --text: #e6e9ef;
-  --muted: #8b93a3;
-  --accent: #4f8cff;
-  --danger: #ff5f57;
-  --done: #5b6472;
+  /* Palette dérivée du logo MyTasks */
+  --orange: #f5842a;
+  --orange-soft: #fbb03b;
+  --purple: #7a2e8e;
+  --purple-deep: #5c2377;
+  --purple-soft: #a24fb8;
+  --grad: linear-gradient(135deg, var(--orange) 0%, var(--purple) 100%);
+
+  --bg: #f6f4f8;
+  --surface: #ffffff;
+  --surface-2: #faf8fc;
+  --border: #ece7f0;
+  --text: #2a2333;
+  --muted: #8a8296;
+  --shadow: 0 1px 2px rgba(46, 22, 60, 0.04), 0 8px 24px rgba(46, 22, 60, 0.06);
+  --shadow-sm: 0 1px 3px rgba(46, 22, 60, 0.06);
+  --radius: 14px;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
   background: var(--bg);
   color: var(--text);
   height: 100vh;
   display: flex;
   flex-direction: column;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* Header */
 header {
-  padding: 14px 20px;
+  padding: 18px 28px;
+  background: var(--surface);
   border-bottom: 1px solid var(--border);
-  background: var(--panel);
+  display: flex;
+  align-items: center;
 }
-header h1 { margin: 0; font-size: 20px; letter-spacing: 0.5px; }
+.logo {
+  height: 34px;
+  width: auto;
+  display: block;
+}
 
 main {
   flex: 1;
@@ -37,115 +53,196 @@ main {
 
 /* Sidebar */
 #sidebar {
-  width: 260px;
+  width: 280px;
+  background: var(--surface);
   border-right: 1px solid var(--border);
-  background: var(--panel);
   display: flex;
   flex-direction: column;
-  padding: 12px;
-  gap: 10px;
+  padding: 20px 16px;
+  gap: 16px;
 }
 
-.new-list { display: flex; gap: 6px; }
-.new-list input {
-  flex: 1;
-  min-width: 0;
-}
+.new-list { display: flex; gap: 8px; }
+.new-list input { flex: 1; min-width: 0; }
 .new-list button {
-  width: 36px;
-  font-size: 18px;
+  width: 40px;
+  padding: 0;
+  font-size: 20px;
+  font-weight: 400;
   line-height: 1;
+  flex-shrink: 0;
 }
 
-#lists { list-style: none; margin: 0; padding: 0; overflow-y: auto; }
+#lists { list-style: none; margin: 0; padding: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; }
 #lists li {
-  padding: 10px 12px;
-  border-radius: 8px;
+  padding: 11px 14px;
+  border-radius: 10px;
   cursor: pointer;
   color: var(--muted);
+  font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: background 0.12s, color 0.12s;
 }
-#lists li:hover { background: var(--panel-2); color: var(--text); }
-#lists li.active { background: var(--accent); color: #fff; }
+#lists li:hover { background: var(--surface-2); color: var(--text); }
+#lists li.active {
+  background: var(--grad);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
 
 /* Panel */
-#panel { flex: 1; padding: 24px; overflow-y: auto; }
-#empty-state { color: var(--muted); margin-top: 40px; text-align: center; }
+#panel { flex: 1; padding: 40px 48px; overflow-y: auto; }
+#panel > * { max-width: 720px; margin-inline: auto; }
+#empty-state {
+  color: var(--muted);
+  margin-top: 80px;
+  text-align: center;
+  font-size: 15px;
+}
 
 .list-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 18px;
+  margin-bottom: 28px;
+  gap: 12px;
 }
-.list-header h2 { margin: 0; }
-.list-actions { display: flex; gap: 8px; }
+.list-header h2 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.list-actions { display: flex; gap: 8px; flex-shrink: 0; }
 
-#add-task-form { display: flex; gap: 8px; margin-bottom: 18px; }
+#add-task-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
 #add-task-form input { flex: 1; }
 
-#tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+#tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .task {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  background: var(--panel);
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.12s, transform 0.12s;
 }
-.task input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
-.task .text { flex: 1; }
-.task.done .text { text-decoration: line-through; color: var(--done); }
+.task:hover { box-shadow: var(--shadow); }
+
+/* Checkbox custom */
+.task input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #d9d1e0;
+  border-radius: 7px;
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color 0.12s, background 0.12s;
+}
+.task input[type="checkbox"]:hover { border-color: var(--purple-soft); }
+.task input[type="checkbox"]:checked {
+  background: var(--grad);
+  border-color: transparent;
+}
+.task input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+}
+
+.task .text { flex: 1; font-size: 15px; }
+.task.done .text { text-decoration: line-through; color: var(--muted); }
 .task .del {
   background: transparent;
   border: none;
-  color: var(--muted);
+  color: #cdc5d6;
   cursor: pointer;
-  font-size: 16px;
-  padding: 2px 6px;
+  font-size: 15px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: color 0.12s, background 0.12s;
 }
-.task .del:hover { color: var(--danger); }
+.task .del:hover { color: var(--orange); background: var(--surface-2); }
 
 /* Inputs & buttons */
 input[type="text"] {
-  background: var(--panel-2);
+  background: var(--surface-2);
   border: 1px solid var(--border);
   color: var(--text);
-  padding: 9px 12px;
-  border-radius: 8px;
+  padding: 11px 14px;
+  border-radius: 10px;
   font-size: 14px;
   outline: none;
+  transition: border-color 0.12s, box-shadow 0.12s;
 }
-input[type="text"]:focus { border-color: var(--accent); }
+input[type="text"]::placeholder { color: var(--muted); }
+input[type="text"]:focus {
+  border-color: var(--purple-soft);
+  box-shadow: 0 0 0 3px rgba(162, 79, 184, 0.12);
+}
 
 button {
-  background: var(--accent);
+  background: var(--grad);
   color: #fff;
   border: none;
-  padding: 9px 14px;
-  border-radius: 8px;
+  padding: 11px 18px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 600;
+  transition: filter 0.12s, transform 0.06s;
 }
-button:hover { filter: brightness(1.1); }
-button.danger { background: transparent; color: var(--danger); border: 1px solid var(--border); }
-button.danger:hover { background: var(--danger); color: #fff; }
-#share-btn { background: var(--panel-2); border: 1px solid var(--border); color: var(--text); }
-#share-btn:hover { border-color: var(--accent); }
+button:hover { filter: brightness(1.05); }
+button:active { transform: translateY(1px); }
+
+button.danger {
+  background: var(--surface);
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+button.danger:hover { color: var(--orange); border-color: var(--orange); filter: none; }
+
+#share-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--purple);
+}
+#share-btn:hover { border-color: var(--purple-soft); filter: none; }
 
 /* Toast */
 #toast {
   position: fixed;
-  bottom: 24px;
+  bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--panel-2);
-  border: 1px solid var(--border);
-  padding: 12px 18px;
-  border-radius: 10px;
-  color: var(--text);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  background: var(--text);
+  color: #fff;
+  padding: 13px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 12px 32px rgba(46, 22, 60, 0.25);
+  animation: toast-in 0.2s ease;
+}
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
